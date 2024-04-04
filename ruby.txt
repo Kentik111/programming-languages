@@ -1,0 +1,18 @@
+def print_pattern # Функция
+    puts "Enter number" # Обращение к пользователю
+    n = gets.chomp.to_i # Ввод числа
+    if n > 26 # Если размер числа превышает количество букв в алфавите
+        puts "Error" # Вывод ошибки
+    else
+        for i in 0...n # Пробег шагов (строк)
+            this_char = 'A'.ord + n - 1 # Конечная буква
+            for j in 0..i # пробег букв
+                print "#{this_char.chr} " # Вывод букв
+                this_char -= 1 # смена буквы
+            end
+            puts # переход на новую строку
+        end
+    end
+end
+
+print_pattern # вызов функции
