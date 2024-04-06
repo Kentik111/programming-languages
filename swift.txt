@@ -1,0 +1,38 @@
+func isPangram(_ sentence: String) -> Bool { // функция проверки на панграмму
+    let alphabet = "abcdefghijklmnopqrstuvwxyz"
+    
+    for char in alphabet {
+        if !sentence.contains(char) { //выводит ложь, если не встречается хоть одна буква из алфавита
+            return false
+        }
+    }
+    
+    return true // иначе истина
+}
+
+func checkPangram() {
+    print("Enter sentence:")
+    if let sentence = readLine() { // ввод строки
+        let englishSymbols = sentence.allSatisfy { $0.isWhitespace || $0.isLetter } // проверка на наличие в строке других символов, кроме букв и пробела
+        
+        
+        
+        let low_sentence = sentence.lowercased() // уменьшение регистра
+        
+        let russian = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
+        let kirillian = russian.filter { low_sentence.contains($0) } // проверка на наличие русских букв в строке
+        if !englishSymbols || kirillian.count > 0 { // если встретились другие символы, кроме английских букв и пробела
+            print("The sentence contains invalid characters") // вывод ошибки
+            return // завершение работы программы
+        }
+        let result = isPangram(low_sentence) // вызов функции
+        
+        if result {
+            print("true") // предложение является панграммой
+        } else {
+            print("false") // не является
+        }
+    }
+}
+
+checkPangram()

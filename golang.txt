@@ -1,0 +1,59 @@
+package main // подключение пакета main
+
+import (
+	"bufio" //буферизированный ввод-вывод
+	"fmt" // подключение пакета ввода-вывода
+	"os" // работа с файлами
+	"strings" // строки
+)
+
+func isPangram(sentence string) bool { // проверка на панграмму. True выводится только в том случае, когда в предложении встречаются все буквы английского алфавита
+	letters := make(map[rune]bool)
+	
+
+	for _, char := range sentence {
+		if char >= 'a' && char <= 'z' {
+			letters[char] = true
+		}
+	}
+
+	return len(letters) == 26
+}
+
+func main() {
+	reader := bufio.NewReader(os.Stdin) // читает ввод строки с консоли
+	fmt.Print("Enter sentence: ")
+	sentence, _ := reader.ReadString('\n') // ввод строки
+	sentence = strings.TrimSpace(sentence) // удаление пробелов
+
+	var low_sentence string = strings.ToLower(sentence) // делаем все буквы строчными
+	
+	englishSymbols := true // проверяем, чтобы в строке содержались только буквы
+	for _, char := range sentence {
+		if !strings.ContainsRune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ", char) {
+			englishSymbols = false
+			break
+		}
+	}
+
+	russian := "абвгдеёжзийклмнопрстуфхцчшщъыьэюя" // проверяем, чтобы не было русских букв
+	kirillian := false
+	for _, char := range sentence {
+		if strings.ContainsRune(strings.ToLower(russian), char) {
+			kirillian = true
+			break
+		}
+	}
+
+	if !englishSymbols || kirillian { // если не удовлетворяет хоть любому условию
+		fmt.Println("The sentence contains invalid characters") // выводится ошибка
+	} else {
+		result := isPangram(low_sentence) // иначе вызывается функция
+
+		if result { // вывод результата
+			fmt.Println("true") // предложение является панграммой
+		} else {
+			fmt.Println("false") // не является
+		}
+	}
+}

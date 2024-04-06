@@ -1,0 +1,30 @@
+function isPangram(sentence) { // Функция проверки строки на панграмму
+  let letters = new Set();
+
+  for (let i = 0; i < sentence.length; i++) {
+    let char = sentence[i];
+    if (char.match(/[a-zA-Z]/)) {
+      letters.add(char.toLowerCase());
+    }
+  }
+
+  return letters.size === 26; // истина только в том случае, если множество содержит все 26 букв алфавита
+}
+
+let sentence = prompt("Enter sentence:"); // ввод строки
+
+let englishSymbols = true; // создаём флаг проверки на наличие других символов, кроме английских букв и пробела
+for (let i = 0; i < sentence.length; i++) {
+  let char = sentence[i];
+  if (!char.match(/\s/) && !char.match(/[a-zA-Z]/)) {
+    englishSymbols = false; // если в строке есть такие символы, флаг меняет значение
+    break; // работа программы прерывается
+  }
+}
+
+if (!englishSymbols) { // если значение флага - ложь
+  console.log("The sentence contains invalid characters"); // вывод ошибки
+} else {
+  let result = isPangram(sentence); // иначе вызывается функция
+  console.log(result); // вывод значения
+}

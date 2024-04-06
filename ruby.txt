@@ -1,0 +1,38 @@
+def is_pangram(sentence) # функция проверки, является ли строка панграммой
+  alphabet = abcdefghijklmnopqrstuvwxyz
+  
+  alphabet.each_char do char
+    return false unless sentence.include(char) # выводит ложь, если не встречается хоть одна буква из алфавита
+  end
+  
+  true # иначе истина
+end
+
+def check_pangram
+  puts Enter sentence
+  sentence = gets.chomp # ввод строки
+  
+  english_symbols = sentence.chars.all { char char == ' '  char.match([a-zA-Z]) } # проверка на наличие других символов, кроме букв и пробела
+
+  
+  low_sentence = sentence.downcase # уменьшение регистра
+
+  # Проверка на наличие русских букв в строке
+  russian = абвгдеёжзийклмнопрстуфхцчшщъыьэюя
+  kirillian = russian.chars.select { char low_sentence.include(char) }
+  
+  if !english_symbols  kirillian.count  0 # если в строке есть другие символы, кроме английских букв и пробела
+    puts The sentence contains invalid characters # выводит ошибку
+    return # завершение работы программы
+  end
+  
+  result = is_pangram(low_sentence) # вызов функции
+  
+  if result
+    puts true # предложение является панграммой
+  else
+    puts false # не является
+  end
+end
+
+check_pangram

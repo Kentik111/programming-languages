@@ -1,0 +1,28 @@
+def is_pangram(sentence): # функция проверки, является ли строка панграммой
+    letters = set()
+    
+    for char in sentence: 
+        if char.isalpha():
+            letters.add(char.lower())
+    
+    return len(letters) == 26 # истина, если в строке встречаются все 26 букв латинского алфавита
+
+
+
+sentence = input("Enter sentence: ")
+
+english_symbols = all(char.isspace() or char.isalpha() for char in sentence) # проверка на наличие других символов, кроме букв и пробела
+
+# Проверка на наличие русских букв в строке
+russian = ('абвгдеёжзийклмнопрстуфхцчшщъыьэюя') 
+kirillian = [x for x in russian if x in sentence.lower()]
+if not english_symbols or len(kirillian) > 0: # если в строке есть другие символы, кроме английских букв и пробела
+    print("The sentence contains invalid characters") # выводит ошибку
+    exit() # завершение работы программы
+else:
+    result = is_pangram(sentence) # иначе вызов функции
+    
+    if result:
+        print("true") # строка является панграммой
+    else:
+        print("false") # не является

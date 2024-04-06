@@ -1,0 +1,44 @@
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
+
+public class PangramChecker {
+    public static boolean isPangram(String sentence) {
+        Set<Character> letters = new HashSet<>();
+
+        for (char c : sentence.toCharArray()) {
+            if (Character.isLetter(c)) {
+                letters.add(Character.toLowerCase(c));
+            }
+        }
+
+        return letters.size() == 26;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter sentence: ");
+        String sentence = scanner.nextLine();
+
+        boolean englishSymbols = true;
+        for (char c : sentence.toCharArray()) {
+            if (!Character.isWhitespace(c) && !Character.isLetter(c)) {
+                englishSymbols = false;
+                break;
+            }
+        }
+
+        if (!englishSymbols) {
+            System.out.println("The sentence contains invalid characters");
+            return;
+        }
+
+        boolean result = isPangram(sentence);
+
+        if (result) {
+            System.out.println("true");
+        } else {
+            System.out.println("false");
+        }
+    }
+}

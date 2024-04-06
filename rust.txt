@@ -1,0 +1,38 @@
+use std::collections::HashSet; // подключение модуля для работы с Hash set
+use std::io; // модуль ввода-вывода
+
+fn is_pangram(sentence: &str) -> bool { // функция проверки на панграмму
+    let mut letters = HashSet::new();
+
+    for char in sentence.chars() {
+        if char.is_alphabetic() {
+            letters.insert(char.to_lowercase().next().unwrap());
+        }
+    }
+
+    letters.len() == 26 //истина, если после пробега по строке во множестве имеются все буквы английского алфавита
+}
+
+fn main() {
+    let mut sentence = String::new();
+
+    println!("Enter sentence: ");
+    io::stdin().read_line(&mut sentence).expect("Failed to read input"); // ввод строки, её считывание
+
+    let english_symbols = sentence.chars().all(|char| char.is_whitespace() || char.is_alphabetic()); // проверка на наличие в строке других символов, кроме букв и пробела
+
+    let russian = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
+    let kirillian: Vec<char> = russian.chars().filter(|char| sentence.to_lowercase().contains(*char)).collect(); // проверка на наличие русских букв в строке
+
+    if !english_symbols || kirillian.len() > 0 { // если встретились другие символы, кроме английских букв и пробела
+        println!("The sentence contains invalid characters"); // вывод ошибки
+    } else {
+        let result = is_pangram(&sentence); // иначе вызов функции
+
+        if result {
+            println!("true"); // предложение является панграммой
+        } else {
+            println!("false"); // не является
+        }
+    }
+}

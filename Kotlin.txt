@@ -1,0 +1,36 @@
+fun isPangram(sentence: String): Boolean { // функция проверки на панграмму
+    val alphabet = "abcdefghijklmnopqrstuvwxyz"
+    val set = HashSet<Char>()
+
+    for (c in sentence) {
+        if (c in 'a'..'z') {
+            set.add(c)
+        }
+    }
+
+    return set.size == 26 // истина в случае если в строке встречаются все 26 букв алфавита
+}
+
+fun main() {
+    println("Enter sentence:")
+    val sentence = readLine() // ввод строки
+    if (sentence != null) {
+        val englishSymbols = sentence.all { it.isWhitespace() || it.isLetter() } // строка должна содержать только буквы и пробелы
+        
+        val lowSentence = sentence.toLowerCase() // уменьшаем регистр
+        
+        val russian = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
+        val kirillian = russian.filter { lowSentence.contains(it) } // проверяем на наличие символов русского алфавита
+        if (!englishSymbols || kirillian.count() > 0) { // строка должна содержать только буквы английского алфавита
+            println("The sentence contains invalid characters") // если условие не выполняется, выводится ошибка
+            return // завершение работы программы
+        }
+        val result = isPangram(lowSentence) // вызов функции
+        
+        if (result) {
+            println("true") // предложение является панграммой
+        } else {
+            println("false") // не является
+        }
+    }
+}
