@@ -1,0 +1,46 @@
+use std::io;
+
+// Функция для подсчёта чётных цифр числа
+fn even_digits(number: u32) -> u32 {
+    let mut count = 0;
+    let mut num = number;
+
+    while num > 0 {
+        let digit = num % 10;
+        if digit % 2 == 0 {
+            count += 1;
+        }
+        num /= 10;
+    }
+
+    count
+}
+
+fn main() {
+    println!("Enter the number of numbers: ");
+    let mut input = String::new(); // ввод количества чисел
+    //проверка числа на опечатки
+    io::stdin().read_line(&mut input).expect("Failed to read input");
+    let n: u32 = input.trim().parse().expect("Invalid input");
+    // число должно быть не меньше 1
+    if n < 1 {
+        println!("Invalid input. Please enter a positive number");
+        return;
+    }
+    // Доп. условие - ограничение количества чисел
+    if n > 10 {
+        println!("Too many numbers");
+        return;
+    }
+
+    for _ in 0..n {
+        println!("Enter a number: ");
+        let mut input = String::new(); // ввод чисел
+        // проверка на опечатки
+        io::stdin().read_line(&mut input).expect("Failed to read input");
+        let number: u32 = input.trim().parse().expect("Invalid input");
+
+        let even_count = even_digits(number); // вызов функции
+        println!("Even digits: {}", even_count); // вывод
+    }
+}

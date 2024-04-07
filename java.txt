@@ -1,0 +1,53 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class EvenDigitsCount {
+    
+    public static int evenDigits(int number) {
+        int count = 0; 
+        while (number > 0) { 
+            int digit = number % 10; 
+            if (digit % 2 == 0) { 
+                count++; 
+            }
+            number /= 10; 
+        }
+        return count; 
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter number: ");
+        int n;
+        if (!scanner.hasNextInt()) { 
+            System.out.println("Do you know what a number is?"); 
+            return; 
+        }
+        n = scanner.nextInt();
+
+        
+        if (n > 10) {
+            System.out.println("Too much numbers");
+            return;
+        }
+
+        List<Integer> numbers = new ArrayList<>(); 
+        System.out.print("Enter " + n + " numbers: ");
+        for (int i = 0; i < n; i++) {
+            if (!scanner.hasNextInt()) { 
+                System.out.println("Invalid input. Please enter a number.");
+                i--; 
+                scanner.next(); 
+                continue;
+            }
+            int num = scanner.nextInt();
+            numbers.add(num); 
+        }
+
+        for (int num : numbers) {
+            int count = evenDigits(num); 
+            System.out.print(count + " ");
+        }
+    }
+}

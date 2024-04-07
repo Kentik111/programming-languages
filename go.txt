@@ -1,0 +1,47 @@
+package main // подключение пакета main
+
+import (
+	"fmt" // подключение пакета ввода-вывода
+
+)
+
+// функция подсчёта количества чётных цифр числа
+func evenDigits(number int) int {
+	count := 0
+	for number > 0 {
+		digit := number % 10
+		if digit % 2 == 0 {
+			count++
+		}
+		number = number / 10
+	}
+	return count
+}
+
+func main() {
+	//ввод количества чисел
+	var n int
+	fmt.Print("Enter a number of numbers: ")
+	fmt.Scan(&n) // Input the number of numbers
+
+	// Доп. условие - ограничение количества чисел
+	if n > 10 {
+		fmt.Println("Too much numbers")
+		return
+	}
+	// Количество должно быть больше нуля
+	if n <= 0 {
+		fmt.Println("Invalid input. Please enter a positive number.")
+		return
+	}
+	
+	// Ввод чисел
+	for i := 0; i < n; i++ {
+		var number int
+		fmt.Print("Enter a number: ")
+		fmt.Scan(&number)
+
+		count := evenDigits(number) // Вызов функции
+		fmt.Println("Even digits:", count) // Вывод
+	}
+}

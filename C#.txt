@@ -1,0 +1,61 @@
+using System; // подключение библиотеки для работы с C#
+using System.Collections.Generic; // подключение коллекций для работы со списком
+
+namespace EvenDigitsCount
+{
+    class Program
+    {
+        // Функция для подсчёта количества чётных цифр в числе
+        static int evenDigits(int number)
+        {
+            int count = 0; // счётчик
+            while (number > 0) // цикл идёт, пока число не обнулится после делений
+            {
+                int digit = number % 10; // получаем последнюю цифру в виде остатка после деления на 10
+                if (digit % 2 == 0) // если цифра делится на 2 без остатка
+                {
+                    count++; // увеличиваем счётчик на 1
+                }
+                number /= 10; // делим  число без остатка на 10, чтобы продолжить цикл
+            }
+            return count; // возвращаем значение счётчика
+        }
+
+        static void Main()
+        {
+            Console.Write("Enter number: ");
+            int n;
+            if (!int.TryParse(Console.ReadLine(), out n)) // опечатка при вводе
+            {
+                Console.WriteLine("Do you know what a number is?"); // ошибка
+                return; // завершение работы программы
+            }
+
+            // Доп. условие - ограничение количества чисел
+            if (n > 10)
+            {
+                Console.WriteLine("Too much numbers");
+                return;
+            }
+
+            List<int> numbers = new List<int>(); // создание списка (не массив), в который будем сохранять введёные числа
+            Console.Write("Enter " + n + " numbers: ");
+            for (int i = 0; i < n; i++)
+            {
+                if (!int.TryParse(Console.ReadLine(), out int num)) // опечатка при вводе
+                {
+                    Console.WriteLine("Invalid input. Please enter a number.");
+                    i--; // возвращаемся назад на 1 элемент
+                    continue; // вводим заново
+                }
+                numbers.Add(num); // добавляем введённый элемент в список
+            }
+
+            foreach (int num in numbers)
+            {
+                int count = evenDigits(num); // вызов функцию для каждого введённого числа
+                Console.Write(count + " "); // последовательный вывод
+            }
+        }
+    }
+}

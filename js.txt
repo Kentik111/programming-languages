@@ -1,0 +1,40 @@
+//функция подсчёта четных цифр
+function evenDigits(number) { 
+  let count = 0; // счётчик
+  while (number > 0) { // цикл идёт, пока число не обнулится после делений
+    let digit = number % 10; // получаем последнюю цифру в виде остатка после деления на 10
+    if (digit % 2 === 0) { // если цифра делится на 2 без остатка
+      count++; // счётчик увеличивается
+    }
+    number = Math.floor(number / 10); // делим  число без остатка на 10, чтобы продолжить цикл
+  }
+  return count; // возвращаем значение счетчика
+}
+
+let n = prompt("Enter a number of numbers: "); // ввод количества чисел
+// Проверка на другие символы, опечатки
+if (isNaN(n)) {
+    console.log("Do you know what a number is?");
+    return;
+  }
+// Количество должно быть больше нуля
+if (n <= 0){
+    console.log("Invalid input. Please enter a positive number");
+    return;
+}
+// Доп. условие - ограничение количества чисел
+if (n > 10) {
+    console.log("Too much numbers");
+    return;
+  }
+//Ввод чисел
+for (let i = 0; i < n; i++) {
+let number = prompt("Enter a number: ");
+if (isNaN(number)) { // ещё одна проверка на опечатки
+      console.log("Invalid input. Please try again");
+      return;
+    }
+
+number=evenDigits(number); //вызов функции
+console.log("Even digits: ", number); // вывод
+}
