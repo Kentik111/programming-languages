@@ -1,0 +1,16 @@
+import java.util.Scanner // Подключение сканера для ввода
+fun main() { 
+   print("Enter number: ") 
+   val scanner = Scanner(System.`in`) 
+   val n = scanner.nextInt()  
+    for (i in 0..n-1) { // пробег шагов от 0 до N
+        var this_Char = 'A' + n - 1 // конечная буква
+        for (j in 0..i) { // пробег индексов
+            print("$this_Char ") // вывод буквы с разделителем в виде пробела
+            this_Char-- // смена буквы (иначе будет выводиться одна и та же буква)
+        }
+        println() // переход на новую строку
+    }
+     
+   scanner.close(); 
+}
