@@ -1,0 +1,43 @@
+fun evenDigits(number: Int): Int {
+    var count = 0 
+    var num = number 
+    while (num > 0) { 
+        val digit = num % 10 
+        if (digit % 2 == 0) { 
+            count++ 
+        }
+        num /= 10 
+    }
+    return count 
+}
+
+fun main() {
+    print("Enter number of numbers: ")
+    val n = readLine()?.toIntOrNull() 
+    
+    if (n == null) {
+        println("Do you know what a number is?")
+        return
+    }
+    
+    if (n <= 0) {
+        println("Invalid input. Please enter a positive number")
+        return
+    }
+    
+    if (n > 10) {
+        println("Too many numbers")
+        return
+    }
+    
+    for (i in 0 until n) {
+        print("Enter number: ")
+        val number = readLine()?.toIntOrNull() 
+        if (number == null) { 
+            println("Invalid input. Please try again")
+            return
+        }
+        val evenCount = evenDigits(number) 
+        println("Even digits: $evenCount") 
+    }
+}
