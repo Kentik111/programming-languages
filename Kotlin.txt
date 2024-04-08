@@ -1,36 +1,42 @@
-fun isPangram(sentence: String): Boolean { // функция проверки на панграмму
-    val alphabet = "abcdefghijklmnopqrstuvwxyz"
-    val set = HashSet<Char>()
+import java.util.* // весь пакет (для работы с классами и т.д.)
 
-    for (c in sentence) {
-        if (c in 'a'..'z') {
-            set.add(c)
+// Функция проверки на панграмму
+fun isPangram(sentence: String): Boolean {
+    val letters = HashSet<Char>()
+    
+    for (str in sentence) {
+        if (str.isLetter()) {
+            letters.add(str.toLowerCase())
         }
     }
-
-    return set.size == 26 // истина в случае если в строке встречаются все 26 букв алфавита
+    
+    return letters.size == 26
 }
 
 fun main() {
-    println("Enter sentence:")
-    val sentence = readLine() // ввод строки
-    if (sentence != null) {
-        val englishSymbols = sentence.all { it.isWhitespace() || it.isLetter() } // строка должна содержать только буквы и пробелы
-        
-        val lowSentence = sentence.toLowerCase() // уменьшаем регистр
-        
-        val russian = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
-        val kirillian = russian.filter { lowSentence.contains(it) } // проверяем на наличие символов русского алфавита
-        if (!englishSymbols || kirillian.count() > 0) { // строка должна содержать только буквы английского алфавита
-            println("The sentence contains invalid characters") // если условие не выполняется, выводится ошибка
-            return // завершение работы программы
+    val scanner = Scanner(System.`in`)
+    print("Enter sentence: ")
+    val sentence = scanner.nextLine() //ввод строки
+    
+    // символ должен быть только английской буквой или пробелом
+    var englishSymbols = true
+    for (symbol in sentence) {
+        if (!symbol.isWhitespace() && !symbol.isLetter()) { 
+            englishSymbols = false //иначе ложь
+            break
         }
-        val result = isPangram(lowSentence) // вызов функции
-        
-        if (result) {
-            println("true") // предложение является панграммой
-        } else {
-            println("false") // не является
-        }
+    }
+    //проверка на отсутствие лишних символов
+    if (!englishSymbols) {
+        println("The sentence contains invalid characters")
+        return
+    }
+    
+    val result = isPangram(sentence) // вызов функции
+    
+    if (result) {
+        println("true") // панграмма
+    } else {
+        println("false") // не панграмма
     }
 }
