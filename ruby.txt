@@ -1,0 +1,29 @@
+#Функция проверки на панграмму
+def is_pangram?(sentence)
+  alphabet = ('a'..'z').to_a
+  sentence.chars.each do |char|
+    alphabet.delete(char) if alphabet.include?(char)
+    return true if alphabet.empty?
+  end
+  alphabet.empty?
+end
+
+puts "Enter sentence:"
+input = gets.chomp # Ввод строки
+low_sentence = input.downcase # уменьшение регистра
+
+# Строка должна содержать только английские буквы и пробел
+english_symbols = true
+low_sentence.each_char do |char|
+  if !char.match?(/\s/) && !char.match?(/[a-zA-Z]/)
+    english_symbols = false
+    break
+  end
+end
+
+if !english_symbols
+  puts "The sentence contains invalid characters"
+else
+  result = is_pangram?(low_sentence) # Вызов функции
+  puts result # Вывод результата
+end
